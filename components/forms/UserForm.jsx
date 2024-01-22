@@ -21,7 +21,9 @@ import { getAlias } from "@/lib/actions/user.action"
 const UserForm = ({user, purpose}) => {
 
     const [alias, setAlias] = useState(null)
+    const [profilePhoto, setProfilePhoto] = useState([])
 
+    //Form Validation
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -33,21 +35,40 @@ const UserForm = ({user, purpose}) => {
         }
     })
 
+    //To update the profile photo in form.
+    const handleImage = (e, fieldChange) => {
+        e.preventDefault();
+        const fileReader = new FileReader();
+        if(e.target.files && e.target.files.length > 0){
+            const file = e.target.files[0];
+            setProfilePhoto(Array.from(e.target.files));
+
+            if (!file.type.includes("image")) return;
+
+            fileReader.onload = async (event) => {
+                const imageDataUrl = event.target?.result?.toString() || "";
+                fieldChange(imageDataUrl);
+            };
+            fileReader.readAsDataURL(file);
+        }
+    }
+
+    //To handle the form submission.
     const handleOnboarding = (values) => {
         console.log(values)
     }
 
     return(
-        <div className="md:w-[80%] bg-[#1b1b1b] font-[#1b1b1b] md:p-4 p-2 rounded-md flex justify-center md:ml-8 custom-scrollbar overflow-auto mt-4 mb-2 h-fit">
+        <div className="md:w-[80%] bg-[#1b1b1b] font-[#1b1b1b] md:p-4 p-2 rounded-md flex justify-center md:ml-12 custom-scrollbar overflow-auto my-4 max-sm:border-2 border-slate-600 max-sm:shadow-lg shadow-slate-700">
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(handleOnboarding)} className="space-y-2 md:w-[90%] md:px-10 p-2">
+                <form onSubmit={form.handleSubmit(handleOnboarding)} className="space-y-4 md:w-[90%] p-2">
                 
                 <FormField 
                     control={form.control} 
                     name='profile_photo'
                     render={({ field }) => (
-                    <FormItem className='flex items-center gap-4'>
-                        <FormLabel className='account-form_image-label'>
+                    <FormItem className='flex items-center justify-around gap-6'>
+                        <FormLabel className='flex h-16 w-auto md:w-20 items-center justify-center bg-[#000] rounded-full overflow-hidden shadow-md shadow-slate-300 mx-2 !important'>
                             {field.value ? (
                             <Image
                                 src={field.value}
@@ -55,7 +76,7 @@ const UserForm = ({user, purpose}) => {
                                 width={96}
                                 height={96}
                                 priority
-                                className='rounded-full object-contain border-4 border-blue-800/40'
+                                className='rounded-full object-contain '
                             />
                             ) : (
                             <Image
