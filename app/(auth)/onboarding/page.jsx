@@ -1,11 +1,15 @@
 import UserForm from "@/components/forms/UserForm"
+import { fetchUser } from "@/lib/actions/user.action"
 import { currentUser } from "@clerk/nextjs"
 import Image from "next/image"
 
 async function page(){
 
     const userData = await currentUser()
-    const user = JSON.parse(JSON.stringify(userData))
+    const userInfo = await fetchUser(userData.id)
+    let user = ''
+    if(!userInfo)   user = JSON.parse(JSON.stringify(userData))
+    else            user = JSON.parse(JSON.stringify(userInfo))
 
     return(
         <main className="flex md:flex-row flex-col-reverse w-screen justify-center items-center">
@@ -19,7 +23,7 @@ async function page(){
             <div className="h-[80vh] border-2 border-blue-800/40 max-sm:hidden flex justify-center items-center rounded-lg shadow-md shadow-slate-400"></div>
             <div className="gif flex flex-col items-center justify-center max-sm:sticky max-sm:top-0 md:h-screen md:w-1/2 max-sm:h-1/5 select-none gap-6 ">
                 <Image src="/assets/onboarding.gif" alt="/assets/logo.svg" width={200} height={200}/>
-                <p className="max-sm:hidden text-xl px-40 text-center text-white font-bold">Tribe Community awesomeness awaits you. <br />Hurry on Board.</p>
+                <p className="max-sm:hidden text-xl px-10 text-center text-white font-bold">Tribe Community awesomeness awaits you. <br />Hurry on Board.</p>
             </div>
         </main>
     )

@@ -1,6 +1,7 @@
 "use client"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+
  
 import { Button } from "@/components/ui/button"
 import {
@@ -16,20 +17,28 @@ import { formSchema } from "@/lib/validations/formValidation"
 import Image from "next/image"
 import { Textarea } from "../ui/textarea"
 import { useState } from "react"
-import { getAlias } from "@/lib/actions/user.action"
+import { checkAlias, updateUser } from "@/lib/actions/user.action"
+import { firstNames, lastNames } from '@/constants'
+
+import { useUploadThing } from "@/lib/uploadthing";
+import { isBase64Image } from "@/lib/utils"
+import { usePathname, useRouter } from "next/navigation"
 
 const UserForm = ({user, purpose}) => {
 
     const [alias, setAlias] = useState(null)
     const [profilePhoto, setProfilePhoto] = useState([])
+    const { startUpload } = useUploadThing('media')
+    const router = useRouter()
+    const pathname = usePathname()
 
     //Form Validation
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
-        profile_photo: user?.imageUrl || user.imageUrl || "",
+        profile_photo: user?.image || user.image || "",
         username: user?.username || "",
-        name: (user?.firstName + ' ' + user?.lastName) || "",
+        name: user?.name || (user?.firstName + ' ' + user?.lastName) || "",
         bio: user?.bio || "",
         alias: user?.alias || ""
         }
@@ -53,9 +62,46 @@ const UserForm = ({user, purpose}) => {
         }
     }
 
+    //Genearting Alias
+    const getAlias = async (e, fieldChange) => {
+        e.preventDefault();
+        const alias = `${firstNames[Math.floor(Math.random() * firstNames.length)]} ${lastNames[Math.floor(Math.random() * lastNames.length)]}`
+        const userExists = await checkAlias(alias)
+        if(userExists) await getAlias(e, fieldChange)
+        else{
+            fieldChange(alias)
+            return alias
+    }   
+    }
+
     //To handle the form submission.
-    const handleOnboarding = (values) => {
-        console.log(values)
+    const handleOnboarding = async (values) => {
+        const blob = values.profile_photo
+
+        const hasImageUpdated = isBase64Image(blob)
+        if(hasImageUpdated){
+            const imgRes = await startUpload(profilePhoto)
+            if( imgRes && imgRes[0].fileUrl ){
+                values.profile_photo = imgRes[0].fileUrl
+            }
+        }
+
+        //Create User
+        await updateUser({
+            name: values.name,
+            path: pathname,
+            username: values.username,
+            userId: user.id,
+            bio: values.bio,
+            alias: values.alias,
+            image: values.profile_photo,
+          })
+
+        if (pathname === "/profile/edit") {
+            router.back();
+          } else {
+            router.push("/");
+          }
     }
 
     return(
@@ -108,7 +154,7 @@ const UserForm = ({user, purpose}) => {
                     <FormItem>
                         <FormLabel>Username</FormLabel>
                         <FormControl className='flex text-semibold text-gray-800 capitalize'>
-                        <Input placeholder="Choose a username." className="border-4 border-[#1b1b1b] bg-[#121212] no-focus text-gray-300" {...field} />
+                        <Input placeholder="Choose a username." title="Username can not be changed" readOnly className="border-4 border-[#1b1b1b] bg-[#121212] no-focus text-gray-300" {...field} />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
@@ -128,10 +174,20 @@ const UserForm = ({user, purpose}) => {
                     )}
                 />
 
-                <div className="my-1">
-                    <p className="text-sm font-semibold bg-gradient-to-br from-blue-800/40 hover:bg-gradient-to-r p-2 my-4 cursor-pointer rounded-md" onClick={()=>{setAlias(getAlias)}}>Generate Random Alias</p>
-                    {alias && <div name="alias" className="border-4 border-[#1b1b1b] bg-[#121212] no-focus w-full p-[6px] pl-4 capitalize text-sm focus-visible:ring-0 focus-visible:ring-transparent text-gray-300" >{alias}</div>}
-                </div>
+                <FormField
+                    control={form.control}
+                    name="alias"
+                    render={({ field }) => (
+                        <FormItem className='flex w-full flex-col'>
+                            <FormLabel className=" text-sm font-semibold bg-gradient-to-br from-blue-800/40 hover:bg-gradient-to-r p-2 my-4 cursor-pointer rounded-md" onClick={async(e)=>await getAlias(e, field.onChange)} >
+                                Generate Random Alias
+                            </FormLabel>
+                            <FormControl className="my-1">
+                                {field.value && <input type='text' name="alias" readOnly value={field.value} className="border-4 border-[#1b1b1b] bg-[#121212] no-focus w-full p-[6px] pl-4 capitalize text-sm focus-visible:ring-0 focus-visible:ring-transparent text-gray-300"/>}
+                            </FormControl>
+                        </FormItem>
+                    )}
+                />
 
                 <FormField
                     control={form.control}
