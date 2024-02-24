@@ -1,7 +1,9 @@
 import UserForm from "@/components/forms/UserForm"
-import { fetchUser } from "@/lib/actions/user.action"
+import { fetchUser } from "@/lib/actions/user.actions"
 import { currentUser } from "@clerk/nextjs"
 import Image from "next/image"
+import { ToastContainer,toast } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 
 async function page(){
 
@@ -13,6 +15,7 @@ async function page(){
 
     return(
         <main className="flex md:flex-row flex-col-reverse w-screen justify-center items-center">
+            <ToastContainer/>
             <div className="h-screen flex flex-col justify-start items-right w-screen p-6 md:w-1/2 z-10 max-sm:-mt-[20px]">
                 <div className="intro mb-3 ">
                     <h1 className='text-3xl font-bold mb-4 stroke mix-blend-difference'>Onboarding</h1>

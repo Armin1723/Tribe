@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
           <Topbar/>
           <main className='flex justify-between w-full'>
             <LeftSidebar/>
-            <section className='max-md:w-screen'>
+            <section>
               <div className='pt-20 '>
                 {children}
               </div>

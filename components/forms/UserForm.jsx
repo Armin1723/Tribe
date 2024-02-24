@@ -17,7 +17,7 @@ import { formSchema } from "@/lib/validations/formValidation"
 import Image from "next/image"
 import { Textarea } from "../ui/textarea"
 import { useState } from "react"
-import { checkAlias, updateUser } from "@/lib/actions/user.action"
+import { checkAlias, updateUser } from "@/lib/actions/user.actions"
 import { firstNames, lastNames } from '@/constants'
 
 import { useUploadThing } from "@/lib/uploadthing";
@@ -26,7 +26,6 @@ import { usePathname, useRouter } from "next/navigation"
 
 const UserForm = ({user, purpose}) => {
 
-    const [alias, setAlias] = useState(null)
     const [profilePhoto, setProfilePhoto] = useState([])
     const { startUpload } = useUploadThing('media')
     const router = useRouter()

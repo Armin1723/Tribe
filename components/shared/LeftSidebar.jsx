@@ -12,8 +12,8 @@ export default function LeftSidebar(){
     const { userId } = useAuth()
 
     return(
-        <aside className="h-screen pt-28 pb-8 bg-[#1b1b1b] flex flex-col justify-between w-fit sticky left-0 top-0 border-r border-r-[#1f1f1f] overflow-auto max-md:hidden custom-scrollbar">
-            <div className="flex flex-col px-6 gap-6">
+        <aside className="h-screen pt-28 pb-8 bg-[#1b1b1b] flex flex-col justify-between min-w-fit sticky left-0 top-0 border-r border-r-[#1f1f1f] overflow-auto max-md:hidden custom-scrollbar">
+            <div className="flex flex-col max-md:px-6 gap-6 mx-4">
                 {sidebarLinks.map((link) => {
                     const isActive =
                     (pathname.includes(link.route) && link.route.length > 1) ||
@@ -23,8 +23,8 @@ export default function LeftSidebar(){
 
                     return(
                         <Link href={link.route} key={link.label} className={`${isActive && 'bg-gradient-to-br from-blue-800/40 to-blue-500/80 '} rounded-md pl-1 hover:opacity-75`}>
-                            <div className="flex items-center gap-2 p-2">
-                                <Image src={link.imgURL} alt={link.label} width={20} height={20}/>
+                            <div className="flex items-center gap-2 md:p-2 ">
+                                <Image src={link.imgURL} alt={link.label} width={20} height={20} className="text-[5vh] object-contain"/>
                                 <p className="font-semibold text-sm max-lg:hidden">{link.label}</p>
                             </div>
                         </Link>
