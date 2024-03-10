@@ -118,22 +118,22 @@ const BlogForm =() => {
         }
         
         await createBlog(values)
-        toast.success("Blog Published Successfully")
+        toast("Blog Published Successfully",{theme:"dark"})
         router.push("/")
     }
 
     return(
-        <div className="content-container border-2 rounded-md p-2 mb-[10vh]">
+        <div className="content-container border-2 rounded-md p-2 mb-[10vh] mr-2 min-w-[65vw]">
             <ToastContainer/>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(handleOnboarding)} className="space-y-4 md:w-[100%] p-2">
+                <form onSubmit={form.handleSubmit(handleOnboarding)} className="space-y-4 p-2">
                 
                 <FormField 
                     control={form.control} 
                     name='blog_image'
                     render={({ field }) => (
                     <FormItem className='flex flex-col items-center justify-around gap-2'>
-                        <FormLabel className='flex w-[80vw] items-center justify-center bg-[#000]'>
+                        <FormLabel className='flex items-center justify-center bg-[#000]'>
                             {field.value ? (
                             <Image
                                 src={field.value}

@@ -1,0 +1,31 @@
+"use client"
+import { Button } from "../ui/button"
+import { useRouter } from "next/navigation"
+
+
+const Pagination = ({hasMore, path, pageNumber}) => {
+    const router = useRouter()
+
+    const handleNav = (direction) => {
+        let nextPage = pageNumber
+
+        if (direction === 'next') {
+          nextPage += 1
+        }else if (direction === 'prev') {
+          nextPage -= 1
+        }
+        if(nextPage > 1)    router.push(`${path}?page=${nextPage}`)
+        else                router.push(`${path}`)
+    }
+    if (!hasMore && pageNumber === 1) return null;
+
+  return (
+    <div className="pagination flex justify-center gap-8 items-center py-4 max-sm:mb-[7vh]">
+      <Button onClick={()=> handleNav('prev')} disabled={pageNumber === 1} className='hover:bg-gray-800'>Prev</Button>
+      <p className='text-small-semibold text-light-1'>{pageNumber}</p>
+      <Button onClick={()=> handleNav('next')} disabled={!hasMore} className='hover:bg-gray-800'>Next</Button>
+    </div>
+  )
+}
+
+export default Pagination
