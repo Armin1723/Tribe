@@ -2,7 +2,6 @@ import { fetchSingleBlog } from "@/lib/actions/blog.actions"
 import ActivityCard from "@/components/cards/ActivityCard"
 import Image from "next/image"
 import Link from "next/link";
-import DOMPurify from 'isomorphic-dompurify';
 import { currentUser } from "@clerk/nextjs";
 import { fetchUser } from "@/lib/actions/user.actions";
 
@@ -14,7 +13,6 @@ const home = async ({params}) => {
     const user = await currentUser();
     const userID = await fetchUser(user.id)
     if(!blog) return <h1 className="text-white mt-[7vh]">Not Found.</h1>
-    const sanitizedHtml = DOMPurify.sanitize(blog.content);
 
     return(
         <div className="md:mx-4 max-sm:px-4 mb-4 flex flex-col max-sm:mb-[8vh] md:max-w-[65vw] max-w-[100vw]">
@@ -30,7 +28,7 @@ const home = async ({params}) => {
                 </div>
                 <p className="text-xs right italic text-gray-600">Created at: {blog.date.toString()}</p>
             </div>
-            <div className="blog text-wrap overflow-x-hidden" dangerouslySetInnerHTML={{__html: sanitizedHtml}}></div>
+            <div className="blog text-wrap overflow-x-hidden" dangerouslySetInnerHTML={{__html: blog.content}}></div>
 
             <ActivityCard blog={blog} userID={userID}/>
         </div>

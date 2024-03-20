@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@ckeditor/ckeditor5-react": "^6.2.0",
     "@clerk/nextjs": "^4.29.3",
     "@clerk/themes": "^1.7.9",
     "@hookform/resolvers": "^3.3.4",
@@ -18,7 +17,6 @@
     "@uploadthing/react": "^6.1.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
-    "isomorphic-dompurify": "^2.4.0",
     "lucide-react": "^0.312.0",
     "mongoose": "^8.0.4",
     "next": "14.0.4",
