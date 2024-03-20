@@ -11,7 +11,7 @@ const RightSidebar = async () => {
                 <div className="flex flex-col gap-4">
                     {blogs.length > 0 && blogs.map((blog)=>{
                         return(
-                            <Link href={`/${blog.title.split(' ').join('-')}`} className="blogRHS flex gap-2 rounded-md overflow-hidden mx-2 border-[1px] max-h-[8vh] border-gray-700 hover:bg-gray-900/70" key={blog._id}>
+                            <Link href={`/blogs/${blog._id}`} className="blogRHS flex gap-2 rounded-md overflow-hidden mx-2 border-[1px] max-h-[8vh] border-gray-700 hover:bg-gray-900/70" key={blog._id}>
                                 <Image src={blog.blog_image} alt="blogImage" width={48} height={24} className="object-cover"/>
                                 <div className="flex flex-col justify-start pr-2 py-1">
                                     <p className="text-xs font-bold capitalize">{blog.title}</p>
@@ -24,10 +24,10 @@ const RightSidebar = async () => {
             </div>
             <div className="px-4 flex flex-col">
                 <p className="text-md font-semibold mb-4">Suggested Spaces.</p>
-                <div className="flex flex-col gap-4">
+                <div className="fle flex-col gap-4 hidden">
                     {blogs.length > 0 && blogs.map((blog)=>{
                         return(
-                            <Link href={`/${blog.title.split(' ').join('-')}`} className="blogRHS flex gap-2 rounded-md overflow-hidden mx-2 border-[1px] max-h-[8vh] border-gray-700 hover:bg-gray-900/70" key={blog._id}>
+                            <Link href={`/blogs/${blog._id}`} className="blogRHS flex gap-2 rounded-md overflow-hidden mx-2 border-[1px] max-h-[8vh] border-gray-700 hover:bg-gray-900/70" key={blog._id}>
                                 <Image src={blog.blog_image} alt="blogImage" width={48} height={24} className="object-cover"/>
                                 <div className="flex flex-col justify-start pr-2 py-1">
                                     <p className="text-xs font-bold capitalize">{blog.title}</p>

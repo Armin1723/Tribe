@@ -6,6 +6,7 @@ import Topbar from '@/components/shared/Topbar'
 import LeftSidebar from '@/components/shared/LeftSidebar'
 import RightSidebar from '@/components/shared/RightSidebar'
 import Bottombar from '@/components/shared/Bottombar'
+import NextTopLoader from 'nextjs-toploader';
 import { dark } from '@clerk/themes'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -21,6 +22,7 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <body className={`${inter.className} flex flex-col w-screen justify-between items-center custom-scrollbar`}>
           <Topbar/>
+          <NextTopLoader color="#1A2991" height={2} shadow="0 0 10px #1A2991, 0 0 15px #1A2991"/>
           <main className='flex justify-between w-full'>
             <LeftSidebar/>
             <section>

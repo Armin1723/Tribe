@@ -2,7 +2,6 @@ import Image from "next/image"
 import Link from "next/link"
 
 const BlogCard = async ({blog, userID}) =>{
-    const blogTitleUrl = blog.title.split(' ').join('-')
     const isLiked = (blog.likes.length > 0) && blog.likes.includes(userID);
  
     return(
