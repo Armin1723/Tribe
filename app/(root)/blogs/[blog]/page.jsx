@@ -7,17 +7,18 @@ import { fetchUser } from "@/lib/actions/user.actions";
 
 
 
-const home = async ({params}) => {
+async function Home ({params}) {
     const blogID = params.blog;
     const blog = await fetchSingleBlog(blogID);
     const user = await currentUser();
     const userID = await fetchUser(user.id)
     if(!blog) return <h1 className="text-white mt-[7vh]">Not Found.</h1>
+    const isLiked = (blog.likes.length > 0 && blog.likes?.includes(userID._id)) 
 
     return(
         <div className="md:mx-4 max-sm:px-4 mb-4 flex flex-col max-sm:mb-[8vh] md:max-w-[65vw] max-w-[100vw]">
             <Image src={blog.blog_image} alt="blog_image" width={24} height={24} className="object-cover w-full aspect-[16/8]"/>
-            <div className="sticky top-[6vh] bg-black py-2 text-[4vh] font-bold font-inter">{blog.title}</div>
+            <div className="sticky top-[6.4vh] bg-black py-2 text-[4vh] font-bold font-inter ">{blog.title}</div>
             <div className="authorDetails flex max-sm:flex-col max-sm:items-start gap-2 p-2 rounded-md text-[#c4c3c3] items-center justify-between md:px-8 md:my-2 bg-gray-900/50 ">
                 <div className="left flex gap-4 max-sm:flex-start">
                     <Link href={`/users/${blog.author.username}`} ><Image src={blog.author.image} alt='user' width={48} height={48} className="rounded-full object-contain aspect-square border-2 border-gray-700"></Image></Link>
@@ -30,9 +31,9 @@ const home = async ({params}) => {
             </div>
             <div className="blog text-wrap overflow-x-hidden" dangerouslySetInnerHTML={{__html: blog.content}}></div>
 
-            <ActivityCard blog={blog} userID={userID}/>
+            <ActivityCard blog={blog} userID={userID} isLiked={isLiked} />
         </div>
     )
 }
 
-export default home
+export default Home

@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
         <body className={`${inter.className} flex flex-col w-screen justify-between items-center custom-scrollbar`}>
           <Topbar/>
           <NextTopLoader color="#1A2991" height={2} shadow="0 0 10px #1A2991, 0 0 15px #1A2991"/>
-          <main className='flex justify-between w-full'>
+          <main className='flex justify-between max-md:justify-center max-lg:justify-start max-lg:gap-4 w-full'>
             <LeftSidebar/>
             <section>
               <div className='pt-20 '>
