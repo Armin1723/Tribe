@@ -1,14 +1,15 @@
 "use client"
+import { toast } from "react-toastify"
 import { Button } from "../ui/button"
 import { useRouter } from "next/navigation"
 
 
 const Pagination = ({hasMore, path, pageNumber}) => {
     const router = useRouter()
+    let nextPage = pageNumber
 
     const handleNav = (direction) => {
-        let nextPage = pageNumber
-
+        const id = toast.loading("Fetching more results")
         if (direction === 'next') {
           nextPage += 1
         }else if (direction === 'prev') {

@@ -105,9 +105,10 @@ const BlogForm =() => {
         }
     }
 
-    //Handle Onboarding
-    const handleOnboarding = async (values) => {
+    //Handle Create Blog
+    const publishBlog = async (values) => {
         const blob = values.blog_image
+        const id = toast.loading("Publishing...",{theme:'dark'})
 
         const hasImageUpdated = isBase64Image(blob)
         if(hasImageUpdated){
@@ -116,9 +117,9 @@ const BlogForm =() => {
                 values.blog_image = imgRes[0].fileUrl
             }
         }
-        
+
         await createBlog(values)
-        toast("Blog Published Successfully",{theme:"dark"})
+        toast.update(id, { render: "Blog Published", type: "success", isLoading: false, theme:'dark' });
         router.push("/")
     }
 
@@ -126,7 +127,7 @@ const BlogForm =() => {
         <div className="content-container border-2 rounded-md p-2 mb-[10vh] mr-2 min-w-[65vw]">
             <ToastContainer/>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(handleOnboarding)} className="space-y-4 p-2">
+                <form onSubmit={form.handleSubmit(publishBlog)} className="space-y-4 p-2">
                 
                 <FormField 
                     control={form.control} 

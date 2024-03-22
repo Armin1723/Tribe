@@ -23,11 +23,11 @@ const Home = async ({searchParams}) =>{
             return(
               <BlogCard key={blog._id} blog={blog} userID={userID}/>
             ) 
-          }) : <p>Loading...</p>
+          }) : <p>No Blogs to Show.</p>
           }
         </div>     
       </section>
-      <Pagination hasMore={result.hasMore} path={'/'} pageNumber={searchParams.page?searchParams.page:1}/>
+      <Pagination hasMore={result.hasMore} path={'/'} pageNumber={searchParams.page?searchParams.page:1} />
     </>
   )
 }
