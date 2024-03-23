@@ -1,5 +1,4 @@
 "use client"
-import { toast } from "react-toastify"
 import { Button } from "../ui/button"
 import { useRouter } from "next/navigation"
 
@@ -9,16 +8,15 @@ const Pagination = ({hasMore, path, pageNumber}) => {
     let nextPage = pageNumber
 
     const handleNav = (direction) => {
-        const id = toast.loading("Fetching more results")
-        if (direction === 'next') {
-          nextPage += 1
-        }else if (direction === 'prev') {
-          nextPage -= 1
+        if (direction === "next") {
+          nextPage = parseInt(pageNumber) + 1
+        }else if (direction === "prev") {
+          nextPage = Math.max(1, pageNumber - 1)
         }
         if(nextPage > 1)    router.push(`${path}?page=${nextPage}`)
         else                router.push(`${path}`)
     }
-    if (!hasMore && pageNumber === 1) return null;
+    if (!hasMore && pageNumber === 1) return <p className="flex items-center justify-center my-4">End of List.</p>;
 
   return (
     <div className="pagination flex justify-center gap-8 items-center py-4 max-sm:mb-[7vh]">

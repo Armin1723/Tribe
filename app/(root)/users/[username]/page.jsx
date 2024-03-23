@@ -1,6 +1,6 @@
 import BlogCard from "@/components/cards/BlogCard";
 import Pagination from "@/components/cards/Pagination";
-import { fetchBlogsByUser, fetchUserByUsername } from "@/lib/actions/user.actions";
+import { fetchBlogsByUser, fetchUserByUsername, getPopularity } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,6 +11,7 @@ async function page ({params, searchParams}){
     const userInfo = await currentUser()
     if (!user) return <div>User not found.</div>
     const selfProfile = (user.id === userInfo.id)
+    const popularity = await getPopularity(user._id)
 
     const result = await fetchBlogsByUser(user._id, searchParams.page?searchParams.page:1, 2)
 
@@ -23,10 +24,18 @@ async function page ({params, searchParams}){
                     <div className="details flex flex-col py-4 max-sm:py-1">
                         <p className="font-inter font-semibold text-[3vh] max-sm:text-[2vh] capitalize">{user.name}</p>
                         <Link href={`/users/${user.username}`} className="text-blue-700/70 text-[2vh] max-sm:text-[1.3vh] underline cursor-pointer">@{user.username}</Link>
-                        <p className="md:mt-2 font-semibold max-sm:text-[1.3vh]">Blogs: {user.blogs.length}</p>
+                        <div className="flex items-center gap-4 md:mt-2 max-sm:text-[1.3vh] max-sm:gap-2">
+                            <p className="font-semibold ">Blogs: {user.blogs.length} </p>
+                            <div className="flex items-center">
+                                <Image src='/assets/trending.svg' alt="trends" width={24} height={24} className="object-contain max-sm:scale-75"/>
+                                <p className="font-semibold">{popularity}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <Link href={`/users/${user.username}/edit`} className={`${!selfProfile && 'hidden'} items-start flex justify-center`}><button className="bg-gradient-to-br from-blue-800/70 to-blue-400/40 hover:bg-gradient-to-r rounded-md text-sm px-6 py-2 my-4">Edit</button></Link>
+                <div>
+                    <Link href={`/users/${user.username}/edit`} className={`${!selfProfile && 'hidden'} items-start flex justify-center`}><button className="bg-gradient-to-br from-blue-800/70 to-blue-400/40 hover:bg-gradient-to-r rounded-md text-sm px-6 py-2 my-4">Edit</button></Link>    
+                </div>
                 <div className="absolute bottom-4 flex items-center justify-center gap-12 w-full font-bold text-blue-900/80 py-4 left-0 bg-gray-900/30 rounded-lg text-md max-sm:text-sm min-h-fit ">
                     <Link href={`/users/${user.username}`} className="hover:underline hover:[text-shadow:_1px_1px_15px_rgb(0_10_225_/_90%)]">Blogs</Link>
                     <div className="rounded-md min-h-full [text-shadow:_1px_1px_15px_rgb(0_10_225_/_90%)] select-none">|</div>
@@ -34,7 +43,7 @@ async function page ({params, searchParams}){
                 </div>
             </div>
 
-            <div className="blogsContainer flex flex-col gap-4 mx-4">
+            <div className="blogsContainer flex flex-col gap-4 mx-4 max-sm:mx-2">
             {result.blogs.length > 0 ? result.blogs.map((blog)=>{     
                 return(
                 <BlogCard key={blog._id} blog={blog} userID={user._id}/>
