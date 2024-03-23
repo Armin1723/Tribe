@@ -3,6 +3,7 @@ import Pagination from "@/components/cards/Pagination";
 import { fetchBlogs } from "@/lib/actions/blog.actions"
 import { fetchUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
+import { ToastContainer } from "react-toastify";
 
 const Home = async ({searchParams}) =>{
   const user = await currentUser();
@@ -19,6 +20,7 @@ const Home = async ({searchParams}) =>{
     <>
       <section className="custom-scrollbar flex flex-col justify-center w-full max-sm:px-4 px-8">
         <div className="blogsContainer flex flex-col gap-4">
+          <ToastContainer />
           {result.blogs.length > 0 ? result.blogs.map((blog)=>{     
             return(
               <BlogCard key={blog._id} blog={blog} userID={userID}/>

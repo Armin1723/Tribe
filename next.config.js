@@ -5,6 +5,8 @@ module.exports = {
         // your project has ESLint errors.
         ignoreDuringBuilds: true,
       },
+      reactStrictMode: true,
+      compress: true,
     images: {
         remotePatterns: [
           {
@@ -26,6 +28,7 @@ module.exports = {
         ],
       },
     experimental: {
+      optimizePackageImports: ['@mantine/core', '@mantine/hooks'],
         serverActions: {
             bodySizeLimit : '2mb'
         },

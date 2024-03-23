@@ -8,7 +8,6 @@ import RightSidebar from '@/components/shared/RightSidebar'
 import Bottombar from '@/components/shared/Bottombar'
 import NextTopLoader from 'nextjs-toploader';
 import { dark } from '@clerk/themes'
-import { ToastContainer } from 'react-toastify'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,7 +23,6 @@ export default function RootLayout({ children }) {
         <body className={`${inter.className} flex flex-col w-screen justify-between items-center custom-scrollbar`}>
           <Topbar/>
           <NextTopLoader color="#1A2991" height={2} shadow="0 0 10px #1A2991, 0 0 15px #1A2991"/>
-          <ToastContainer/>
           <main className='flex justify-between max-md:justify-center max-lg:justify-start max-lg:gap-4 w-full'>
             <LeftSidebar/>
             <section>

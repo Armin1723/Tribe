@@ -13,8 +13,11 @@ const Pagination = ({hasMore, path, pageNumber}) => {
         }else if (direction === "prev") {
           nextPage = Math.max(1, pageNumber - 1)
         }
-        if(nextPage > 1)    router.push(`${path}?page=${nextPage}`)
-        else                router.push(`${path}`)
+        if(nextPage > 1){
+          router.push(`${path}?page=${nextPage}`)
+        }else{
+          router.push(`${path}`)
+        }
     }
     if (!hasMore && pageNumber === 1) return <p className="flex items-center justify-center my-4">End of List.</p>;
 
