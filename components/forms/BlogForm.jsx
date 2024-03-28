@@ -45,7 +45,7 @@ const modules = {
     ],
     clipboard: {
       // toggle to add extra line breaks when pasting HTML:
-      matchVisual: false,
+      matchVisual: true,
     },
   }
 const formats = [

@@ -12,7 +12,7 @@ async function page ({params, searchParams}){
     const selfProfile = (user.id === userInfo.id)
     const popularity = await getPopularity(user._id)
 
-    const result = await fetchSpacesByUser(user._id, searchParams.page?searchParams.page:1, 2)
+    const result = await fetchSpacesByUser(user._id, searchParams.page?searchParams.page:1, 4)
 
     return(
         <div className="custom-scrollbar flex flex-col justify-center max-lg:min-w-[85vw] items-center w-full md:w-[65vw] text-white font-inter max-sm:px-4 px-2">

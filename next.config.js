@@ -1,11 +1,14 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
+  webpack: (config) => {
+    return config;
+  },
     eslint: {
         // Warning: This allows production builds to successfully complete even if
         // your project has ESLint errors.
         ignoreDuringBuilds: true,
       },
-      reactStrictMode: true,
+      //reactStrictMode: true,
       compress: true,
     images: {
         remotePatterns: [
@@ -32,8 +35,8 @@ module.exports = {
         serverActions: {
             bodySizeLimit : '2mb'
         },
+        esmExternals: "loose",
         serverComponentsExternalPackages: ["mongoose"],
         
     }
 }
-

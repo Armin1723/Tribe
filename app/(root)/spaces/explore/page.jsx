@@ -1,10 +1,11 @@
 import Pagination from "@/components/cards/Pagination"
 import { fetchAllSpaces } from "@/lib/actions/space.actions"
-import { fetchUser, fetchUserSpaces } from "@/lib/actions/user.actions"
+import { fetchUser } from "@/lib/actions/user.actions"
 import { currentUser } from "@clerk/nextjs"
 import Image from "next/image"
 import Link from "next/link"
 import { redirect } from "next/navigation"
+import SpaceCard from "@/components/cards/SpaceCard"
 
 const page = async ({searchParams}) => {
     const userInfo = await currentUser()
@@ -13,7 +14,7 @@ const page = async ({searchParams}) => {
     const user = await fetchUser(userInfo.id)
     if (!user?.onboarded) return redirect('/onboarding')
 
-    const result = await fetchAllSpaces(user._id, searchParams.page ? searchParams.page : 1)
+    const result = await fetchAllSpaces(searchParams.page ? searchParams.page : 1, 10)
 
   return (
     <div className="custom-scrollbar flex flex-col justify-center max-sm:w-screen md:w-[65vw] max-lg:min-w-[88vw] px-4">
@@ -34,17 +35,10 @@ const page = async ({searchParams}) => {
         <div className="flex flex-col gap-4">
             {result.spaces.length > 0 && 
                 result.spaces.map(space => (
-                    <div className="flex items-center justify-between bg-gray-900/30 rounded-md p-4">
-                        <Image src={space.space_image} alt={space.space_name} width={100} height={100} className="rounded-md"/>
-                        <div>
-                            <h2 className="font-bold">{space.space_name}</h2>
-                            <p>{space.space_description}</p>
-                        </div>
-                        <Link href={`/spaces/${space.space_name}`} className="bg-gradient-to-br from-blue-800/40 to-blue-500/80 hover:opacity-75 rounded-lg px-6 py-2">View</Link>
-                    </div>
+                    <SpaceCard space={space} key={space._id}/>
                 )) 
             }
-            <Pagination hasMore={result.hasMore} path='/spaces/explore' pageNumber={1}/>
+            <Pagination hasMore={result.hasMore} path='/spaces/explore' pageNumber={searchParams.page ? searchParams.page : 1}/>
         </div>
     </div>
   )
