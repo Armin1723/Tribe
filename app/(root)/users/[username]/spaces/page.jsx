@@ -48,7 +48,7 @@ async function page ({params, searchParams}){
             <div className="blogsContainer flex flex-col gap-4 mx-4 max-sm:mx-2">
             {result.spaces.length > 0 ? result.spaces.map((space)=>{     
                 return(
-                 <SpaceCard space={space}/>
+                 <SpaceCard space={space} key={space._id}/>
                 ) 
             }) : <p>No Spaces Joined.</p>
             }

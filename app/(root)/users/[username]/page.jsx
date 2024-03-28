@@ -2,14 +2,20 @@ import BlogCard from "@/components/cards/BlogCard";
 import Pagination from "@/components/cards/Pagination";
 import { fetchBlogsByUser, fetchUserByUsername, getPopularity } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
+import { revalidatePath } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 
 async function page ({params, searchParams}){
-    const user = await fetchUserByUsername(params.username)
     const userInfo = await currentUser()
-    if (!user) return <div>User not found.</div>
+    if(params.username === 'username'){
+        redirect(`/users/${userInfo.username}`)
+    }
+
+    const user = await fetchUserByUsername(params.username)
+    if (!user) return <div>Users not found.</div>
     const selfProfile = (user.id === userInfo.id)
     const popularity = await getPopularity(user._id)
 
