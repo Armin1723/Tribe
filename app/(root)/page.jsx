@@ -11,6 +11,11 @@ const Home = async ({searchParams}) =>{
 
   const userInfo = await fetchUser(user.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
+  
+  if(!searchParams.username){
+    searchParams.username = userInfo.username
+  }
+    
 
   const userID = userInfo._id
 

@@ -19,7 +19,7 @@ const Pagination = ({hasMore, path, pageNumber}) => {
           router.push(`${path}`)
         }
     }
-    if (!hasMore && pageNumber === 1) return <p className="flex items-center justify-center my-4">End of List.</p>;
+    if (!hasMore && pageNumber === 1) return null;
 
   return (
     <div className="pagination flex justify-center gap-8 items-center py-4 max-sm:mb-[7vh]">

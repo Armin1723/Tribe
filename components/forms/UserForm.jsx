@@ -96,7 +96,7 @@ const UserForm = ({user, purpose}) => {
             image: values.profile_photo,
           })
 
-        if (pathname === "/profile/edit") {
+        if (pathname === "/users/username/edit") {
             router.back();
           } else {
             router.push("/");
