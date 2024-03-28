@@ -40,7 +40,7 @@ async function page ({params, searchParams}){
                     <div className="flex items-center justify-center gap-12 font-bold text-blue-900/80 bg-gray-900/30 px-12 rounded-lg py-2 max-sm:text-[1.5vh]">
                         <Link href={`/users/${user.username}`} className="hover:underline hover:[text-shadow:_1px_1px_15px_rgb(0_10_225_/_90%)]">Blogs</Link>
                         <div className="rounded-md min-h-full [text-shadow:_1px_1px_15px_rgb(0_10_225_/_90%)] select-none">|</div>
-                        <Link href={`/users/${user.username}/spaces`} className="hover:underline [text-shadow:_1px_1px_15px_rgb(0_10_225_/_90%)]">Spaces</Link>
+                        <Link href={`/users/${user.username}/space`} className="hover:underline [text-shadow:_1px_1px_15px_rgb(0_10_225_/_90%)]">Spaces</Link>
                     </div>
                 </div>
             </div>

@@ -40,14 +40,14 @@ async function page ({params, searchParams}){
                     </div>
                 </div>
                 <div>
-                    <Link href={`/users/${user.username}/edit`} className={`${!selfProfile && 'hidden'} items-start flex justify-center`}><button className="bg-gradient-to-br from-blue-800/70 to-blue-400/40 hover:bg-gradient-to-r rounded-md text-sm px-6 py-2 my-4">Edit</button></Link>    
+                    <Link href={`/users/${user.username}/edit`} className={`${!selfProfile && 'hidden'} items-start flex justify-center`}><button className="bg-gradient-to-br from-blue-800/40 to-blue-500/80 hover:opacity-75 rounded-md text-sm px-6 py-2 my-4">Edit</button></Link>    
                 </div>
                 <div className="absolute bottom-2 max-sm:bottom-0 flex flex-col items-center justify-center gap-2 max-sm:gap-0 w-full py-4  max-sm:py-2 left-0 rounded-lg text-md max-sm:text-sm min-h-fit select-none">
                     <p className="text-sm italic max-sm:text-[1.3vh]">"{user.bio}"</p>
                     <div className="flex items-center justify-center gap-12 font-bold text-blue-900/80 bg-gray-900/30 px-12 rounded-lg py-2 max-sm:text-[1.5vh]">
                         <Link href={`/users/${user.username}`} className="hover:underline [text-shadow:_1px_1px_15px_rgb(0_10_225_/_90%)]">Blogs</Link>
                         <div className="rounded-md min-h-full [text-shadow:_1px_1px_15px_rgb(0_10_225_/_90%)] select-none">|</div>
-                        <Link href={`/users/${user.username}/spaces`} className="hover:underline hover:[text-shadow:_1px_1px_15px_rgb(0_10_225_/_90%)]">Spaces</Link>
+                        <Link href={`/users/${user.username}/space`} className="hover:underline hover:[text-shadow:_1px_1px_15px_rgb(0_10_225_/_90%)]">Spaces</Link>
                     </div>
                 </div>
             </div>

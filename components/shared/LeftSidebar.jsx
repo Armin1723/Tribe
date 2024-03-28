@@ -17,6 +17,7 @@ export default function LeftSidebar(){
                 {sidebarLinks.map((link) => {
                     const isActive =
                     (pathname.includes(link.route) && link.route.length > 1) ||
+                    (pathname.includes(link.label) && link.label === 'users') ||
                     pathname === link.route;
                     
                     const placeholder = 'username'
@@ -26,7 +27,7 @@ export default function LeftSidebar(){
                         <Link href={link.route} key={link.label} className={`${isActive && 'bg-gradient-to-br from-blue-800/40 to-blue-500/80 '} rounded-md pl-1 hover:opacity-75`}>
                             <div className="flex items-center gap-2 md:p-2 ">
                                 <Image src={link.imgURL} alt={link.label} width={20} height={20} className="text-[5vh] object-contain"/>
-                                <p className="font-semibold text-sm max-lg:hidden">{link.label}</p>
+                                <p className="font-semibold text-sm max-lg:hidden">{link.label === 'users' ? 'Profile' : link.label }</p>
                             </div>
                         </Link>
                     )

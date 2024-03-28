@@ -15,7 +15,7 @@ const Home = async ({searchParams}) =>{
 
   const userID = userInfo._id
 
-  const result = await fetchBlogs(searchParams.page?searchParams.page:1)
+  const result = await fetchBlogs(searchParams.page ? searchParams.page : 1)
 
   return (
     <>
