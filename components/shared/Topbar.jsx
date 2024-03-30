@@ -5,8 +5,8 @@ import Link from "next/link";
 
 export default async function Topbar(){
     const user = await currentUser()
-    const userData = await fetchUser(user.id)
-    if(!userData) return null
+    const userData = await fetchUser(user?.id)
+    // if(!userData) return null
     return(
         <nav className="fixed top-0 bg-[#1b1b1b] w-full z-20 flex items-center justify-between pl-2 py-2 md:max-h-[7vh]">
             <Link href='/' className="flex gap-2 items-center justify-center pl-2">
