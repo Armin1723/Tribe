@@ -10,7 +10,11 @@ export default function Bottombar(){
     return(
         <section className="fixed flex gap-2 bottom-0 w-full md:hidden items-center justify-between px-6 py-2 bg-gradient-to-t from-[#1b1b1b] to-gray-900 rounded-t-md">
             {sidebarLinks.map((link =>{
-                const isActive = ( pathname.includes === link.route && pathname.length > 1 ) || pathname === link.route
+                const isActive =
+                (pathname.includes(link.route) && link.route.length > 1) ||
+                (pathname.includes(link.label) && link.label === 'users') ||
+                pathname === link.route;
+                
                 const isCreateBlog = link.label === 'Create Blog'
 
                 return(

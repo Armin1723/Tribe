@@ -1,4 +1,5 @@
 import Pagination from "@/components/cards/Pagination";
+import SpaceCard from "@/components/cards/SpaceCard";
 import { fetchSpacesByUser, fetchUserByUsername, getPopularity } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
 import Image from "next/image";
@@ -45,7 +46,7 @@ async function page ({params, searchParams}){
                 </div>
             </div>
 
-            <div className="blogsContainer flex flex-col gap-4 mx-4 max-sm:mx-2">
+            <div className="blogsContainer flex flex-col gap-4 mx-4 max-sm:mx-2 md:w-full">
             {result.spaces.length > 0 ? result.spaces.map((space)=>{     
                 return(
                  <SpaceCard space={space} key={space._id}/>
