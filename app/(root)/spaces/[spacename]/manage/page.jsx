@@ -1,3 +1,4 @@
+import KickOutButton from "@/components/buttons/KickOutButton"
 import SpaceActionButton from "@/components/buttons/SpaceActionButton"
 import { fetchRequests, fetchSpace } from "@/lib/actions/space.actions"
 import { fetchUser, fetchUsernameById } from "@/lib/actions/user.actions"
@@ -5,6 +6,8 @@ import { currentUser } from "@clerk/nextjs"
 import Image from "next/image"
 import Link from "next/link"
 import { redirect } from "next/navigation"
+import { ToastContainer } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 
 const page = async({params}) => {
     const results = await fetchSpace(params.spacename.split('-').join(' '))
@@ -17,8 +20,9 @@ const page = async({params}) => {
     const requests = await fetchRequests(params.spacename.split('-').join(' '))
 
   return (
-    <div className="flex flex-col justify-center font-inter md:w-[65vw] max-lg:min-w-[88vw]">
+    <div className="flex flex-col justify-center font-inter md:w-[65vw] max-lg:min-w-[88vw] max-sm:px-2">
 
+      <ToastContainer/>
       <div className="requests flex flex-col gap-2">
         <p className="font-bold text-xl my-2">Requests</p>
         {requests?.length > 0 ?
@@ -49,9 +53,10 @@ const page = async({params}) => {
                         <div className={`${results.space.space_admin._id.toString() === member._id.toString() ? 'hidden' : ''} flex justify-between w-full rounded-md bg-gray-900/50 gap-2 p-2`} key={member._id}>
                             <div className="flex flex-col">
                                 <p className="">{member.alias}</p>
-                                <p className='text-xs'>Member ID: {member._id}</p>
+                                <p className='text-xs'>Member ID: {member._id.toString()}</p>
+                                <Link href={`/users/${username}`} className="text-blue-700 hover:opacity-75 text-sm items-center flex">@{username}</Link>
                             </div>
-                            <Link href={`/users/${username}`} className="text-blue-700 hover:opacity-75 text-sm items-center flex">@{username}</Link>
+                            <KickOutButton spacename={results.space.space_name} userid={member._id.toString()} isMember={results.isMember}/>
                         </div>
                     )
                 }):
