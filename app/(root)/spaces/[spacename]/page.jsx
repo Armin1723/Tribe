@@ -2,7 +2,6 @@ import Pagination from "@/components/cards/Pagination"
 import SpaceDetailCard from "@/components/cards/SpaceDetailCard"
 import ThreadCard from "@/components/cards/ThreadCard"
 import { fetchSpace, fetchThreadsBySpacename } from "@/lib/actions/space.actions"
-import Link from "next/link"
 import { ToastContainer } from "react-toastify"
 
 const page = async ({params, searchParams}) => {
