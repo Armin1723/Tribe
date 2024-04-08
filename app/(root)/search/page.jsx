@@ -42,7 +42,7 @@ const page = () => {
         <div className="custom-scrollbar flex justify-start">
             <ToastContainer/>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(handleSearch)} className="fixed top-[8vh] max-sm:max-h-fit max-sm:top-[13vh] overflow-hidden max-sm:bottom-[10vh] left-[25vh] max-sm:left-0 flex justify-center max-sm:min-w-full md:gap-2 hover:opacity-75 max-sm:text-xs">
+                <form onSubmit={form.handleSubmit(handleSearch)} className="fixed top-[9vh] max-sm:max-h-fit max-sm:top-[13vh] overflow-hidden max-sm:bottom-[10vh] left-[25vh] max-sm:left-0 flex justify-center max-sm:min-w-full md:gap-2 hover:opacity-75 max-sm:text-xs">
                 
                 
                     

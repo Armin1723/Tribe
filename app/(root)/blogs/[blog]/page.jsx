@@ -4,6 +4,7 @@ import Link from "next/link";
 import { currentUser } from "@clerk/nextjs";
 import { fetchUser } from "@/lib/actions/user.actions";
 import LikeBlogButton from "@/components/buttons/LikeBlogButton";
+import ShareButton from "@/components/buttons/ShareButton";
 
 async function Home ({params}) {
     const blogID = params.blog;
@@ -39,7 +40,10 @@ async function Home ({params}) {
 
             <div className="flex max-sm:flex-col md:justify-between px-4 items-center bg-gray-900/60 rounded-md py-4 mt-4 max-sm:gap-2">
                 <p className="font-inter font-light max-sm:px-4 max-sm:text-[2vh] leading-tight text-center">Intrigued with what you read? Give it a heart or share with your friends.</p>
-                <LikeBlogButton blogID={blog._id} isLiked={isLiked} userID={userID._id} />
+                <div className="flex">
+                    <LikeBlogButton blogID={blog._id} isLiked={isLiked} userID={userID._id} />
+                    <ShareButton title={blog.title} text={blog.description} />
+                </div>
             </div>
 
         </div>
