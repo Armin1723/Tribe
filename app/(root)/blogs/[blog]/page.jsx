@@ -6,6 +6,8 @@ import { fetchUser } from "@/lib/actions/user.actions";
 import LikeBlogButton from "@/components/buttons/LikeBlogButton";
 import ShareButton from "@/components/buttons/ShareButton";
 
+
+
 async function Home ({params}) {
     const blogID = params.blog;
     const blog = await fetchSingleBlog(blogID);
@@ -28,7 +30,7 @@ async function Home ({params}) {
                 </div>
                 <p className="text-xs right italic text-gray-600">Created at: {blog.date.toString()}</p>
             </div>
-            <div className="blog text-wrap overflow-x-hidden" dangerouslySetInnerHTML={{__html: blog.content}}></div>
+            <div className="blog text-wrap overflow-x-auto custom-scrollbar selection:bg-purple-950" dangerouslySetInnerHTML={{__html: blog.content}}></div>
 
 
             { userID._id.toString().length <= 0 && <div className="bg-[#1f1f1f] my-4 py-4 flex flex-col items-center rounded-md">

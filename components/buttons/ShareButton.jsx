@@ -9,9 +9,9 @@ const ShareButton = ({title, text}) => {
   return (
     <RWebShare
       data={{
-        text: text,
+        text: '',
         title: title,
-        url: 'https://localhost:3000/' + path
+        url: 'https://tribe-w34q.onrender.com' + path
       }}
     >
       <Image src='/assets/share.svg' alt='share button' width={48} height={48} className="cursor-pointer hover:opacity-75"/>

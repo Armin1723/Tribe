@@ -3,7 +3,7 @@
 import { createSpace } from "@/lib/actions/space.actions"
 import { useUploadThing } from "@/lib/uploadthing"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { usePathname, useRouter } from "next/navigation"
+import { redirect, usePathname } from "next/navigation"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { ToastContainer, toast } from "react-toastify"
@@ -17,12 +17,10 @@ import { Textarea } from "../ui/textarea"
 import { isBase64Image } from "@/lib/utils"
 
 
-const SpaceForm = ({user, purpose}) => {
+const SpaceForm = ({purpose}) => {
 
     const [image, setImage] = useState([])
-    const [value, setValue] = useState("");
     const { startUpload } = useUploadThing('media')
-    const router = useRouter()
     const pathname = usePathname()
 
     //Form Validation
@@ -71,7 +69,7 @@ const SpaceForm = ({user, purpose}) => {
         //Create Space
         await createSpace(values)
         toast.update(id, { render: "Space Created.", type: "success", isLoading: false, theme:'dark', autoClose: 2000 , closeOnClick: true});
-        router.push(pathname);
+        router.redirect(pathname);
     }
 
     return(

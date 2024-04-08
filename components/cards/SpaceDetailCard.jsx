@@ -19,9 +19,9 @@ const SpaceDetailCard = ({space, isAdmin, isMember, requestPending}) => {
 
         {isAdmin && <Link href={`/spaces/${space.space_name.split(' ').join('-')}/manage`} className="flex justify-center max-sm:w-full items-center bg-gradient-to-br from-blue-800/40 to-blue-500/80 hover:opacity-75 rounded-lg max-sm:text-xs px-6 py-2 h-1/2">Manage</Link>}
         {!isMember && (!requestPending ? 
-                                    <RequestButton spaceId={space._id.toString()} requestPending={requestPending}/> 
+                                    <RequestButton spaceId={space._id} requestPending={requestPending}/> 
                                     : 
-                                    <button disabled className="max-sm:w-full rounded-md px-6 py-2 border-1 border-gray-600 bg-gray-700/50 cursor-not-allowed">Sent </button>
+                                    <button disabled className="max-sm:w-full rounded-md px-6 py-2 border-1 border-gray-600 bg-gray-700/50 cursor-not-allowed">Sent</button>
                         )}
     </div>
   )

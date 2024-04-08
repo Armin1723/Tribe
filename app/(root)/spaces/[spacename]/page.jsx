@@ -8,14 +8,14 @@ import { ToastContainer } from "react-toastify"
 const page = async ({params, searchParams}) => {
     const result = await fetchSpace(params.spacename.split('-').join(' '))
     let threads = []
-    if(result.isMember)
+    if(result?.isMember)
         threads = await fetchThreadsBySpacename(params.spacename.split('-').join(' '),searchParams.page ? searchParams.page : 1, 5)
   return (
     <div className="custom-scrollbar flex flex-col gap-2 justify-center items-center md:w-[67vw] max-lg:min-w-[85vw] max-sm:px-4">
       <ToastContainer/>
       <SpaceDetailCard space={result.space} isAdmin={result.isAdmin} isMember={result.isMember} requestPending={result.requestPending}/>
       <div className="threadsContainer custom-scrollbar flex flex-col justify-between my-4 min-h-[400vh] w-full">
-        {result.isMember ?
+         {result?.isMember ?
             <>
                 <ThreadCard threads={threads}/>
                 
@@ -25,7 +25,7 @@ const page = async ({params, searchParams}) => {
                     <h1 className="text-xl font-bold">Join the space to view threads</h1>
                 </div>
         }
-      </div>
+      </div> 
     </div>
   )
 }

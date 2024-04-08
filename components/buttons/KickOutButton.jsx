@@ -5,12 +5,13 @@ import { usePathname } from "next/navigation"
 import { toast } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 
-const KickOutButton = ({spacename, userId, isMember}) => {
+const KickOutButton = ({space_name, userId, isMember}) => {
     const path = usePathname()
     const handleKickout = async ()=>{
         const id = toast.loading("Kicking user out...",{theme:'dark'})
-        await kickOutMember(spacename, userId, path)
+        await kickOutMember(space_name, userId, path)
         isMember = false
+        console.log(isMember, "path: ",path)
         toast.update(id, { render: "User removed", type: "success", isLoading: false, theme:'dark', autoClose: 2000 , closeOnClick: true});
     }
   return (
