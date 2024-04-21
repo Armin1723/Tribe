@@ -23,7 +23,7 @@ const page = async ({params, searchParams}) => {
          {result?.isMember ?
             <>
                 <ThreadCard threads={threads.threads}/>   
-                <Pagination hasMore={threads.hasMore} path={`/spaces/${params.spacename}?page=${searchParams.page ? searchParams.page : ''}`} pageNumber={searchParams.page ? searchParams.page : 1}/>
+                <Pagination hasMore={threads.hasMore} path={`/spaces/${params.spacename}`} pageNumber={searchParams.page ? searchParams.page : 1}/>
             </>
             :
                 <div className="flex flex-col items-center justify-center gap-4 my-4 max-sm:text-sm italic">
