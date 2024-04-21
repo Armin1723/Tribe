@@ -63,7 +63,7 @@ const ThreadCard = ({threads}) => {
                         />
 
                       </div>
-          
+                      <p className='text-[0.5rem] text-gray-300/30 italic'>{thread.createdAt?.toLocaleDateString() + ' ' + thread.createdAt.toLocaleTimeString()}</p>
                       {thread.thread_comments?.length > 0 && (
                         <Link href={`/thread/${thread._id}`}>
                           <p className='mt-1 text-subtle-medium text-gray-1'>
