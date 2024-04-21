@@ -28,6 +28,10 @@ module.exports = {
             protocol: "https",
             hostname: "placehold.co",
           },
+          {
+            protocol: "https",
+            hostname: "tenor.com",
+          },
         ],
       },
     experimental: {

@@ -2,7 +2,6 @@ import BlogCard from "@/components/cards/BlogCard";
 import Pagination from "@/components/cards/Pagination";
 import { fetchBlogsByUser, fetchUserByUsername, getPopularity } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
-import { revalidatePath } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -22,8 +21,8 @@ async function page ({params, searchParams}){
     const result = await fetchBlogsByUser(user._id, searchParams.page?searchParams.page:1, 2)
 
     return(
-        <div className="custom-scrollbar flex flex-col justify-center max-lg:min-w-[85vw] items-center w-full md:w-[65vw] text-white font-inter max-sm:px-4 px-2">
-            <Image src='/assets/banner.png' alt="banner" width={500} height={200} className="w-full object-cover aspect-[16/6] rounded-t-md user-select-none"/>
+        <div className="custom-scrollbar select-none flex flex-col justify-center max-lg:min-w-[85vw] items-center w-full md:w-[65vw] text-white font-inter max-sm:px-4 px-2">
+            <Image src='/assets/banner.png' alt="banner" width={500} height={200} className="w-full select-none object-cover aspect-[16/6] rounded-t-md user-select-none"/>
             <div className=" w-full flex px-4 h-[30vh] max-sm:h-[20vh] justify-between relative ">
                 <div className="flex justify-start gap-4 max-sm:gap-2">
                     <Image src={user.image} priority alt="userImage" width={220} height={100} className="relative -mt-[6vw] max-sm:-mt-[4vw] max-lg:-mt-[4vw] max-w-[20vw] max-h-[20vw] object-cover rounded-full border-4 border-gray-700/50 aspect-square h-full backdrop-blur-lg z-20"/>
@@ -42,7 +41,7 @@ async function page ({params, searchParams}){
                 <div>
                     <Link href={`/users/${user.username}/edit`} className={`${!selfProfile && 'hidden'} items-start flex justify-center`}><button className="bg-gradient-to-br from-blue-800/40 to-blue-500/80 hover:opacity-75 rounded-md text-sm px-6 py-2 my-4">Edit</button></Link>    
                 </div>
-                <div className="absolute bottom-2 max-sm:bottom-0 flex flex-col items-center justify-center gap-2 max-sm:gap-0 w-full py-4  max-sm:py-2 left-0 rounded-lg text-md max-sm:text-sm min-h-fit select-none">
+                <div className="absolute bottom-0 flex flex-col items-center justify-center gap-2 max-sm:gap-0 w-full text-center max-sm:py-2 left-0 rounded-lg text-md max-sm:text-sm min-h-fit select-none px-4">
                     <p className="text-sm italic max-sm:text-[1.3vh]">"{user.bio}"</p>
                     <div className="flex items-center justify-center gap-12 font-bold text-blue-900/80 bg-gray-900/30 px-12 rounded-lg py-2 max-sm:text-[1.5vh]">
                         <Link href={`/users/${user.username}`} className="hover:underline [text-shadow:_1px_1px_15px_rgb(0_10_225_/_90%)]">Blogs</Link>
@@ -52,7 +51,7 @@ async function page ({params, searchParams}){
                 </div>
             </div>
 
-            <div className="blogsContainer flex flex-col gap-4 mx-4 max-sm:mx-2">
+            <div className="blogsContainer flex flex-col gap-4 m-4 max-sm:mx-2">
             {result.blogs.length > 0 ? result.blogs.map((blog)=>{     
                 return(
                 <BlogCard key={blog._id} blog={blog} userID={user._id}/>

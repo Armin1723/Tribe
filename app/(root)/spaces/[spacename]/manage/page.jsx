@@ -28,7 +28,7 @@ const page = async({params}) => {
             requests.map((request)=>{
                 return(
                     <div key={request._id} className="flex justify-between p-2 md:gap-2 rounded-md bg-gray-900/50">
-                        <div className="flex justify-start gap-2">
+                        <div className="flex justify-start gap-2    ">
                             <Image src={request.image} alt="user_image" width={48} height={48} className='rounded-full w-16 h-16 border-2'/>
                             <div className="flex flex-col justify-center">
                                 <p>{request.name}</p>

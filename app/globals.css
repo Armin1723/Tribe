@@ -9,21 +9,6 @@ html{
     -webkit-tap-highlight-color: none;
 }
 
-
-/* .stroke{
-  -webkit-text-stroke-color: #000;
-  -webkit-text-stroke-width: 1px;
-  color: #fff;
-  font-weight: 900;
-  cursor: crosshair;
-} 
-.stroke-1{
-  -webkit-text-stroke-color: #000000;
-  -webkit-text-stroke-width: 0.5px;
-  color: #ffffff;
-  font-weight: 400;
-}  */
-
 @layer utilities {
     .css-invert {
       @apply invert-[50%] brightness-200;
@@ -47,6 +32,10 @@ html{
     .custom-scrollbar::-webkit-scrollbar-thumb:hover {
       background: #7878a3;
     }
+  }
+
+  .thread-card_bar {
+    @apply relative mt-2 w-0.5 grow rounded-full bg-neutral-800;
   }
   
   /* Clerk Responsive fix */
