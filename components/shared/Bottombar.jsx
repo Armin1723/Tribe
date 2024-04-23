@@ -18,7 +18,7 @@ export default function Bottombar(){
                 const isCreateBlog = link.label === 'Create Blog'
 
                 return(
-                    <Link href={link.route} key={link.label} className={`${isActive && 'bg-gradient-to-br from-blue-800/40 to-blue-500/80'} ${isCreateBlog && 'font-extrabold scale-125'} flex flex-col items-center justify-center p-2 rounded-3xl sm:rounded-lg sm:px-4 sm:py-1 sm:hover:opacity-75`}>
+                    <Link href={link.route} shallow key={link.label} className={`${isActive && 'bg-gradient-to-br from-blue-800/40 to-blue-500/80'} ${isCreateBlog && 'font-extrabold scale-125'} flex flex-col items-center justify-center p-2 rounded-3xl sm:rounded-lg sm:px-4 sm:py-1 sm:hover:opacity-75`}>
                         <div className="flex items-center justify-center rounded-full p-2">
                             <Image src={link.imgURL} alt={link.label} height={16} width={16}/>
                         </div>

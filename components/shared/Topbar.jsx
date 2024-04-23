@@ -9,7 +9,7 @@ export default async function Topbar(){
     // if(!userData) return null
     return(
         <nav className="fixed top-0 bg-[#1b1b1b] w-full z-20 flex items-center justify-between pl-2 py-2 md:max-h-[7vh]">
-            <Link href='/' className="flex gap-2 items-center justify-center pl-2">
+            <Link href='/' shallow className="flex gap-2 items-center justify-center pl-2">
                 <Image src="/assets/logo.svg" alt="logo" width={42} height={42}/>
                 <p className="font-extrabold text-xl max-sm:hidden">Tribe</p>
             </Link>
@@ -22,7 +22,7 @@ export default async function Topbar(){
                         </SignOutButton>}
                 </div>
                 <div className="flex items-center justify-center mt-1">
-                    {userData && <Link href={`/users/${userData.username}`} className='mr-8 flex items-center justify-center'>
+                    {userData && <Link href={`/users/${userData.username}`} shallow className='mr-8 flex items-center justify-center'>
                         <Image src={userData.image} alt='userImage' width={24} height={24} className="aspect-square w-12 h-12 rounded-full object-cover border-4 border-gray-700 shadow-md shadow-gray-600/50 hover:scale-110"/>
                     </Link>}
                 </div>
