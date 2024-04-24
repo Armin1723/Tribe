@@ -5,19 +5,25 @@ import { currentUser } from "@clerk/nextjs";
 import { fetchUser } from "@/lib/actions/user.actions";
 import LikeThreadButton from "../buttons/LikeThreadButton";
 import { redirect } from "next/navigation";
+import ReplyForm from "../forms/ReplyForm";
 
-const ThreadCard = async ({ thread, spacename }) => {
+const ThreadCard = async ({ thread, spacename, isComment }) => {
   const user = await currentUser();
-  if(!user) redirect('/login')
+  if (!user) redirect("/login");
   const userInfo = await fetchUser(user.id);
   const userID = userInfo._id;
   const isLiked = thread.thread_likes.includes(userID);
 
   return (
-    <div className="my-4 max-sm:text-sm font-inter flex flex-col max-sm:min-w-[90vw]">
-      <article key={thread._id} className="flex w-full flex-col rounded-xl p-4 xs:px-7 bg-gray-900/30" >
-        <div className="flex items-start justify-between">
-          <div className="flex w-full flex-1 flex-row gap-4 ">
+    <div className={` ${isComment && 'pl-4'} max-sm:text-sm font-inter flex flex-col max-sm:min-w-[90vw] bg-gray-900/30`}>
+      <article
+        key={thread._id}
+        className="flex w-full flex-col p-2 xs:px-7"
+      >
+        <div className="flex items-start justify-between w-full ">
+          {isComment && <div className="flex items-end justify-center text-md text-gray-600 mr-2">...</div>}
+
+          <div className="flex w-full flex-1 flex-row gap-4">
             <div className="flex flex-col items-center">
               <Image
                 src="/assets/robot.gif"
@@ -28,10 +34,10 @@ const ThreadCard = async ({ thread, spacename }) => {
                 className="cursor-pointer rounded-full min-w-[30px] aspect-square"
               />
 
-              <div className="thread-card_bar -mt-4" />
+              <div className="thread-card_bar" />
             </div>
 
-            <div className="flex flex-col">
+            <div className="flex flex-col w-full">
               <p className="font-inter font-semibold title">
                 {thread.thread_author.alias}
               </p>
@@ -42,8 +48,8 @@ const ThreadCard = async ({ thread, spacename }) => {
                 {thread.thread_content}
               </Link>
 
-              <div className="mt-2 flex flex-col gap-3 select-none">
-                <div className="flex gap-3.5 items-start">
+              <div className=" flex flex-col select-none">
+                <div className={`flex gap-3.5 items-start mb-2 ${!isComment && 'my-2'}`}>
                   <div className="flex flex-col items-center justify-center">
                     <LikeThreadButton
                       threadID={thread._id}
@@ -71,19 +77,22 @@ const ThreadCard = async ({ thread, spacename }) => {
                     </div>
                   </Link>
                 </div>
-                <p className="text-[0.5rem] text-gray-300/30 italic ">
-                  {thread.createdAt?.toLocaleDateString() +
-                    " " +
-                    thread.createdAt.toLocaleTimeString()}
-                </p>
-                {
+                {!isComment && (
+                  <p className="text-[0.5rem] text-gray-300/30 italic ">
+                    {thread.createdAt?.toLocaleDateString() +
+                      " " +
+                      thread.createdAt.toLocaleTimeString()}
+                  </p>
+                )}
+                { !isComment &&
                   <Link href={`/spaces/${spacename}/${thread._id}`}>
-                    <p className="mt-1 text-xs text-gray-300">
+                    <p className="text-[0.6rem] py-1 hover:underline text-gray-300">
                       {thread.thread_comments.length} repl
                       {thread.thread_comments.length > 1 ? "ies" : "y"}
                     </p>
                   </Link>
                 }
+                {!isComment && <ReplyForm userID={userID} parentID={thread._id} />}
               </div>
             </div>
           </div>

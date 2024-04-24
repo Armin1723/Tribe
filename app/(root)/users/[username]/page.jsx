@@ -8,13 +8,14 @@ import { redirect } from "next/navigation";
 
 
 async function page ({params, searchParams}){
+    
     const userInfo = await currentUser()
     if(params.username === 'username'){
         redirect(`/users/${userInfo.username}`)
     }
 
     const user = await fetchUserByUsername(params.username)
-    if (!user) return <div>Users not found.</div>
+    if (!user) return <div>User not found.</div>
     const selfProfile = (user.id === userInfo.id)
     const popularity = await getPopularity(user._id)
 

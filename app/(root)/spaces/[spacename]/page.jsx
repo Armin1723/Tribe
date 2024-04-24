@@ -19,12 +19,12 @@ const page = async ({params, searchParams}) => {
       <Link href={`/spaces/${params.spacename}/create`} shallow className="fixed flex items-center justify-center overflow-hidden lg:bottom-10 bottom-20 right-5 lg:right-[23vw] h-12 z-10 aspect-square rounded-full bg-gradient-to-br from-blue-800/40 to-blue-500/80 hover:opacity-75 shadow-md cursor-pointer">
         <Image src='/assets/create-thread.svg' alt='create thread' width={48} height={48} className=" p-1 w-full aspect-square" ></Image>
       </Link>
-      <div className="threadsContainer custom-scrollbar flex flex-col justify-between my-4 w-full">
+      <div className="threadsContainer custom-scrollbar flex flex-col justify-between my-4 gap-4 w-full">
          {result?.isMember ?
             <>
               {threads.threads.length > 0 ? threads.threads.map((thread)=>{
                 return(
-                  <ThreadCard key={thread._id} thread={thread} spacename={params.spacename}/>
+                  <ThreadCard key={thread._id} thread={thread} spacename={params.spacename} isComment={false}/>
                 )
               })
               :

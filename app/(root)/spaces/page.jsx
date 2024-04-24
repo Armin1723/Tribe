@@ -16,7 +16,7 @@ const page = async ({searchParams}) => {
     const result = await fetchSpacesByUser(user._id, searchParams.page ? searchParams.page : 1, 5)
 
   return (
-    <div className="custom-scrollbar flex flex-col justify-center max-sm:w-screen md:w-[65vw] max-lg:min-w-[88vw] px-4">
+    <div className="custom-scrollbar flex flex-col justify-center max-sm:w-screen md:w-[65vw] max-lg:min-w-[88vw] px-4 mb-[8vh]">
         <Image src='/assets/banner.png' alt="banner" priority width={500} height={200} className="w-full object-cover aspect-[16/6] rounded-t-md user-select-none"/>
         <div className='max-sm:sticky top-[9vh] bg-black'>
             <div className=''>

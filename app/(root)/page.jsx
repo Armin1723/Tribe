@@ -8,9 +8,9 @@ import { ToastContainer } from "react-toastify";
 
 const Home = async ({searchParams}) =>{
   const user = await currentUser();
-  if (!user) return null;
+  if (!user) redirect('/login');
 
-  const userInfo = await fetchUser(user.id);
+  const userInfo = await fetchUser(user?.id);
   if (!userInfo?.onboarded) redirect("/onboarding");  
 
   const userID = userInfo._id

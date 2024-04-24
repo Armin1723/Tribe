@@ -2,11 +2,13 @@ import UserForm from "@/components/forms/UserForm"
 import { fetchUser } from "@/lib/actions/user.actions"
 import { currentUser } from "@clerk/nextjs"
 import Image from "next/image"
+import { redirect } from "next/navigation"
 
 async function page(){
 
     const userData = await currentUser()
     const userInfo = await fetchUser(userData.id)
+    if(userInfo?.onboarded) redirect('/')
     let user = ''
     if(!userInfo)   user = JSON.parse(JSON.stringify(userData))
     else            user = JSON.parse(JSON.stringify(userInfo))
