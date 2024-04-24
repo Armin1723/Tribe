@@ -3,10 +3,9 @@ import Link from "next/link";
 import React from "react";
 import { currentUser } from "@clerk/nextjs";
 import { fetchUser } from "@/lib/actions/user.actions";
-import LikeThreadButton from "../buttons/LikeThreadButton";
 import { redirect } from "next/navigation";
-import ReplyForm from "../forms/ReplyForm";
 import { formatDateString } from "@/lib/utils";
+import ThreadInteractiveCard from "./ThreadInteractiveCard";
 
 const ThreadCard = async ({ thread, spacename, isComment }) => {
   const user = await currentUser();
@@ -27,10 +26,10 @@ const ThreadCard = async ({ thread, spacename, isComment }) => {
           <div className="flex w-full flex-1 flex-row gap-4">
             <div className="flex flex-col items-center">
               <Image
-                src="/assets/robot.gif"
+                src={`https://robohash.org/${thread.thread_author.alias.split(' ')[0]}.png?set=set4`}
                 alt="user_community_image"
-                width={24}
-                height={24}
+                width={28}
+                height={28}
                 unoptimized
                 className="cursor-pointer rounded-full min-w-[30px] aspect-square"
               />
@@ -48,54 +47,25 @@ const ThreadCard = async ({ thread, spacename, isComment }) => {
               >
                 {thread.thread_content}
               </Link>
-
-              <div className=" flex flex-col select-none">
-                <div className={`flex gap-3.5 items-start mb-2 ${!isComment && 'my-2'}`}>
-                  <div className="flex flex-col items-center justify-center">
-                    <LikeThreadButton
-                      threadID={thread._id}
-                      isLiked={isLiked}
-                      userID={userID}
-                    />
-                    <p className="text-xs text-gray-600">
-                      {thread.thread_likes.length}
-                    </p>
-                  </div>
-
-                  <Link
-                    href={`/spaces/${spacename}/${thread._id}`}
-                    className="flex flex-col items-center justify-center"
-                  >
-                    <Image
-                      src="/assets/reply.svg"
-                      alt="heart"
-                      width={24}
-                      height={24}
-                      className="cursor-pointer object-contain"
-                    />
-                    <div className="text-xs text-gray-600">
-                      {thread.thread_comments?.length}
-                    </div>
-                  </Link>
-                </div>
-                {!isComment && (
+              
+              { !isComment &&
+                <Link href={`/spaces/${spacename}/${thread._id}`}>
+                  <p className="text-[0.6rem] py-1 hover:underline text-gray-300">
+                    {thread.thread_comments.length} repl
+                    {thread.thread_comments.length > 1 ? "ies" : "y"}
+                  </p>
+                </Link>
+              }
+              {!isComment && (
                   <p className="text-[0.5rem] text-gray-300/30 italic ">
                       {formatDateString(thread.createdAt)}
                   </p>
                 )}
-                { !isComment &&
-                  <Link href={`/spaces/${spacename}/${thread._id}`}>
-                    <p className="text-[0.6rem] py-1 hover:underline text-gray-300">
-                      {thread.thread_comments.length} repl
-                      {thread.thread_comments.length > 1 ? "ies" : "y"}
-                    </p>
-                  </Link>
-                }
-                {!isComment && <ReplyForm userID={userID} parentID={thread._id} />}
+
+              <ThreadInteractiveCard threadID={thread._id} likes={thread.thread_likes.length} comments={thread.thread_comments.length} isLiked={isLiked} userID={userID} spacename={spacename} isComment={isComment}/>
               </div>
             </div>
           </div>
-        </div>
       </article>
     </div>
   );

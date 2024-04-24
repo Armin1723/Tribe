@@ -38,7 +38,7 @@ const ReplyForm = ({userID , parentID}) => {
   return (
     <div className='flex flex-col max-sm:w-[90%] w-[90%] border-blue-700/40 rounded-md'>
         <form onSubmit={handleThread} className='flex flex-col'>
-            <div className="flex gap-4 h-8">
+            <div className="flex gap-4 h-8 mb-2">
                 <Input type='text' placeholder='Reply...' name='threadContent' value={thread_content} onChange={(e)=>setThread_content(e.target.value)} className='border-2 custom-scrollbar border-[#1e1748] placeholder:text-xs text-xs bg-transparent m-0 h-8 rounded-lg no-focus text-gray-300'/>
                 <Button type='submit' disabled={disabled || thread_content==''} className='bg-gradient-to-br from-blue-800/40 hover:opacity-75 shadow-md p-2 rounded-md h-8'>
                     {!disabled ?
