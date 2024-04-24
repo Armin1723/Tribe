@@ -39,7 +39,7 @@ const ThreadInteractiveCard = ({threadID, likes, comments, isLiked, userID, isCo
         </div>
       </div>
 
-      {open && <ReplyForm userID={userID} parentID={threadID} />}
+      {open && <ReplyForm userID={userID} parentID={threadID} setOpen={setOpen}/>}
     </div>
   );
 };

@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import { formatDateString } from "@/lib/utils";
 import ThreadInteractiveCard from "./ThreadInteractiveCard";
 
-const ThreadCard = async ({ thread, spacename, isComment }) => {
+const ThreadCard = async ({ thread, spacename, isComment, tCL }) => {
   const user = await currentUser();
   if (!user) redirect("/login");
   const userInfo = await fetchUser(user.id);
@@ -62,7 +62,7 @@ const ThreadCard = async ({ thread, spacename, isComment }) => {
                   </p>
                 )}
 
-              <ThreadInteractiveCard threadID={thread._id} likes={thread.thread_likes.length} comments={thread.thread_comments.length} isLiked={isLiked} userID={userID} spacename={spacename} isComment={isComment}/>
+              <ThreadInteractiveCard threadID={thread._id} likes={thread.thread_likes.length} comments={tCL ? tCL : thread.thread_comments.length} isLiked={isLiked} userID={userID} spacename={spacename} isComment={isComment}/>
               </div>
             </div>
           </div>

@@ -1,13 +1,13 @@
 "use client"
 import React, { useState } from 'react'
 import { Button } from '../ui/button'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { toast } from 'react-toastify'
 import { Input } from '../ui/input'
 import Image from 'next/image'
 import { postComment } from '@/lib/actions/thread.actions'
 
-const ReplyForm = ({userID , parentID}) => {
+const ReplyForm = ({userID , parentID, setOpen}) => {
     const [thread_content, setThread_content] = useState('')
     const [error, setError ] = useState(null)
     const [disabled, setDisabled] = useState(false)
@@ -32,6 +32,7 @@ const ReplyForm = ({userID , parentID}) => {
         setThread_content('')
         setError(null)
         setDisabled(false)
+        setOpen(false)
         toast.dismiss()
     }
 
@@ -44,7 +45,7 @@ const ReplyForm = ({userID , parentID}) => {
                     {!disabled ?
                         <Image src='/assets/share.svg' alt='loading' width={24} height={24}/>
                     :
-                        <p>O</p>
+                        <Image src='/assets/spinner.svg' alt='loading' width={24} height={24}/>
                     }
                 </Button>
             </div>
