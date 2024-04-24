@@ -1,4 +1,5 @@
 "use client"
+import { playClick } from "@/lib/utils"
 import { Button } from "../ui/button"
 import { useRouter } from "next/navigation"
 
@@ -8,6 +9,7 @@ const Pagination = ({hasMore, path, pageNumber}) => {
     let nextPage = pageNumber
 
     const handleNav = (direction) => {
+        playClick()
         if (direction === "next") {
           nextPage = parseInt(pageNumber) + 1
         }else if (direction === "prev") {

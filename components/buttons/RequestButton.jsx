@@ -1,12 +1,14 @@
 'use client'
 
 import { sendRequest } from "@/lib/actions/space.actions"
+import { playClick } from "@/lib/utils";
 import { usePathname } from "next/navigation"
 import { toast } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 
 const RequestButton = ({spaceId, requestPending}) => {
     const path = usePathname()
+    playClick()
     const handleRequest = async () => {
         const id = toast.loading("Sending Request...",{theme:'dark'})
         await sendRequest(spaceId, path)

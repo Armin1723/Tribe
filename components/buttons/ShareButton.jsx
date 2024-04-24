@@ -9,7 +9,7 @@ const ShareButton = ({title, text}) => {
   return (
     <RWebShare
       data={{
-        text: '',
+        text: text.slice(0,20)+'...',
         title: title,
         url: 'https://tribe-w34q.onrender.com' + path
       }}

@@ -6,6 +6,7 @@ import { fetchUser } from "@/lib/actions/user.actions";
 import LikeThreadButton from "../buttons/LikeThreadButton";
 import { redirect } from "next/navigation";
 import ReplyForm from "../forms/ReplyForm";
+import { formatDateString } from "@/lib/utils";
 
 const ThreadCard = async ({ thread, spacename, isComment }) => {
   const user = await currentUser();
@@ -18,7 +19,7 @@ const ThreadCard = async ({ thread, spacename, isComment }) => {
     <div className={` ${isComment && 'pl-4'} max-sm:text-sm font-inter flex flex-col max-sm:min-w-[90vw] bg-gray-900/30`}>
       <article
         key={thread._id}
-        className="flex w-full flex-col p-2 xs:px-7"
+        className={`flex w-full flex-col p-2 xs:px-7 ${isComment && 'py-0'}`}
       >
         <div className="flex items-start justify-between w-full ">
           {isComment && <div className="flex items-end justify-center text-md text-gray-600 mr-2">...</div>}
@@ -38,12 +39,12 @@ const ThreadCard = async ({ thread, spacename, isComment }) => {
             </div>
 
             <div className="flex flex-col w-full">
-              <p className="font-inter font-semibold title">
+              <p className={`font-inter font-semibold title ${isComment && 'font-[400] text-[0.8rem]'}`}>
                 {thread.thread_author.alias}
               </p>
               <Link
                 href={`/spaces/${spacename}/${thread._id}`}
-                className="text-sm text-gray-400"
+                className={`text-sm text-gray-400 ${isComment && 'text-[0.7rem]'}`}
               >
                 {thread.thread_content}
               </Link>
@@ -79,9 +80,7 @@ const ThreadCard = async ({ thread, spacename, isComment }) => {
                 </div>
                 {!isComment && (
                   <p className="text-[0.5rem] text-gray-300/30 italic ">
-                    {thread.createdAt?.toLocaleDateString() +
-                      " " +
-                      thread.createdAt.toLocaleTimeString()}
+                      {formatDateString(thread.createdAt)}
                   </p>
                 )}
                 { !isComment &&

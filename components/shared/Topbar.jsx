@@ -22,7 +22,7 @@ export default async function Topbar(){
                         </SignOutButton>}
                 </div>
                 <div className="flex items-center justify-center mt-1">
-                    {userData && <Link href={`/users/${userData.username}`} shallow className='mr-8 flex items-center justify-center'>
+                    {userData && <Link href={`/users/${userData.username}`} shallow  className='mr-8 flex items-center justify-center'>
                         <Image src={userData.image} alt='userImage' width={24} height={24} className="aspect-square w-12 h-12 rounded-full object-cover border-4 border-gray-700 shadow-md shadow-gray-600/50 hover:scale-110"/>
                     </Link>}
                 </div>

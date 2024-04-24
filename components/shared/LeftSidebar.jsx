@@ -4,6 +4,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import Image from "next/image"
 import Link from "next/link"
 import { SignOutButton, SignedIn } from "@clerk/nextjs";
+import { playClick } from "@/lib/utils"
 
 export default function LeftSidebar(){
 
@@ -23,7 +24,7 @@ export default function LeftSidebar(){
                     if(link.route === '/users')  link.route= `/users/${placeholder}`
 
                     return(
-                        <Link href={link.route} key={link.label} shallow className={`${isActive && 'bg-gradient-to-br from-blue-800/40 to-blue-500/80 '} rounded-md pl-1 hover:opacity-75`}>
+                        <Link href={link.route} key={link.label} shallow onClick={playClick} className={`${isActive && 'bg-gradient-to-br from-blue-800/40 to-blue-500/80 '} rounded-md pl-1 hover:opacity-75`}>
                             <div className="flex items-center gap-2 md:p-2 ">
                                 <Image src={link.imgURL} alt={link.label} width={20} height={20} className="text-[5vh] object-contain"/>
                                 <p className="font-semibold text-sm max-lg:hidden">{link.label === 'users' ? 'Profile' : link.label }</p>
@@ -35,7 +36,7 @@ export default function LeftSidebar(){
             <div className="font-semibold text-sm flex items-center justify-center">
                 <SignedIn>
                     <SignOutButton signOutCallback={()=> router.push('/login')}>
-                        <div className="flex cursor-pointer gap-2 items-center hover:opacity-75">
+                        <div className="flex cursor-pointer gap-2 items-center hover:opacity-75" onClick={playClick}>
                             <Image src="/assets/logout.svg" alt="logout" width={28} height={28}/>
                             <p className="max-lg:hidden">Logout</p>
                         </div>
