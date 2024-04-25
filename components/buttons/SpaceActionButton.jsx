@@ -1,6 +1,7 @@
 "use client";
 
 import { acceptRequest, deleteRequest } from "@/lib/actions/space.actions";
+import { playClick } from "@/lib/utils";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -8,8 +9,8 @@ import { useState } from "react";
 const SpaceActionButton = ({ spacename, userId }) => {
   const [disabled, setDisabled] = useState(false);
   const path = usePathname();
-  const handleRequest = async (e, role) => {
-    e.preventDefault();
+  const handleRequest = async (role) => {
+    playClick()
     setDisabled(true);
     if (role === "accept") await acceptRequest(spacename, userId, path);
     if (role === "delete") await deleteRequest(spacename, userId, path);
@@ -19,14 +20,14 @@ const SpaceActionButton = ({ spacename, userId }) => {
       {!disabled ? (
         <>
           <button
-            onClick={(e) => handleRequest(e, "accept")}
+            onClick={() => handleRequest("accept")}
             disabled={disabled}
             className="rounded-md hover:opacity-75 bg-gradient-to-br from-green-600/90 px-2 h-1/2"
           >
             ✓<span className="max-sm:hidden px-1">Accept</span>
           </button>
           <button
-            onClick={(e) => handleRequest(e, "delete")}
+            onClick={() => handleRequest("delete")}
             disabled={disabled}
             className="rounded-md hover:opacity-75 bg-gradient-to-br from-red-600/90 px-2 h-1/2"
           >

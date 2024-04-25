@@ -1,12 +1,15 @@
 import ThreadForm from '@/components/forms/ThreadForm'
 import { fetchUser } from '@/lib/actions/user.actions'
 import { currentUser } from '@clerk/nextjs'
+import { redirect } from 'next/navigation'
 import React from 'react'
 
 const page = async ({params}) => {
   const user = await currentUser()
   if(!user) return null
   const userData = await fetchUser(user.id)
+  if(!userData.spaces.includes(params.spacename.split('-').join(' ')))  redirect(`/spaces/${params.spacename}`)
+
   return (
     <div className='flex flex-col items-center'>
       <div className='font-bold text-xl'>Create Thread</div>
