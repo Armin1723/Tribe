@@ -3,13 +3,17 @@
 import { sendRequest } from "@/lib/actions/space.actions"
 import { playClick } from "@/lib/utils";
 import { usePathname } from "next/navigation"
+import { useState } from "react";
 import { toast } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 
 const RequestButton = ({spaceId, requestPending}) => {
+  const [ sent, setSent ] = useState(requestPending)
     const path = usePathname()
-    playClick()
+    
     const handleRequest = async () => {
+        playClick()
+        setSent(!sent)
         const id = toast.loading("Sending Request...",{theme:'dark'})
         await sendRequest(spaceId, path)
         toast.update(id, { render: "Request sent", type: "success", isLoading: false, theme:'dark', autoClose: 2000 , closeOnClick: true});

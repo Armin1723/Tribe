@@ -30,6 +30,7 @@ const ThreadCard = async ({ thread, spacename, isComment, tCL }) => {
                 alt="user_community_image"
                 width={28}
                 height={28}
+                priority
                 unoptimized
                 className="cursor-pointer rounded-full min-w-[30px] aspect-square"
               />

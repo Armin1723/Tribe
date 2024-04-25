@@ -17,7 +17,10 @@ const SpaceDetailCard = ({space, isAdmin, isMember, requestPending}) => {
             </div>
         </div>
 
-        {isAdmin && <Link href={`/spaces/${space.space_name.split(' ').join('-')}/manage`} className="flex justify-center max-sm:w-full items-center bg-gradient-to-br from-blue-800/40 to-blue-500/80 hover:opacity-75 rounded-lg max-sm:text-xs px-6 py-2 h-1/2">Manage</Link>}
+        {isAdmin && <Link href={`/spaces/${space.space_name.split(' ').join('-')}/manage`} className="flex justify-center max-sm:w-full items-center bg-gradient-to-br from-blue-800/40 to-blue-500/80 hover:opacity-75 rounded-lg max-sm:text-xs px-6 py-2 h-1/2 relative">
+                      Manage
+                      {space.space_requests.length > 0 && <p className="absolute top-0 right-0 px-2 py-1 translate-x-[50%] -translate-y-[50%] bg-red-700 hover:opacity-75 rounded-full text-xs">{space.space_requests.length}</p>}
+                    </Link>}
         {!isMember && (!requestPending ? 
                                     <RequestButton spaceId={space._id} requestPending={requestPending}/> 
                                     : 
