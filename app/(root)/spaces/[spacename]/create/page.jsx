@@ -8,7 +8,6 @@ const page = async ({params}) => {
   const user = await currentUser()
   if(!user) return null
   const userData = await fetchUser(user.id)
-  if(!userData.spaces.includes(params.spacename.split('-').join(' ')))  redirect(`/spaces/${params.spacename}`)
 
   return (
     <div className='flex flex-col items-center'>
