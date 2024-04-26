@@ -20,7 +20,7 @@ const page = async ({ params, searchParams }) => {
       5
     );
   return (
-    <div className="custom-scrollbar lg:mb-2 flex flex-col gap-2 justify-center items-center md:w-[67vw] max-lg:min-w-[85vw] max-sm:px-4">
+    <div className="custom-scrollbar lg:mb-2 mb-[8vh] flex flex-col gap-2 justify-center items-center md:w-[67vw] max-lg:min-w-[85vw] max-sm:px-4">
       <ToastContainer />
       <SpaceDetailCard
         space={result.space}
