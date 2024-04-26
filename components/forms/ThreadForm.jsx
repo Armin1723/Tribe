@@ -45,7 +45,7 @@ const ThreadForm = ({userID , parentID, spacename}) => {
                 </div>
             }
             <Button type='submit' disabled={disabled} className='w-full mt-2'>
-                {disabled ? <Image src='/assets/spinner.svg' alt='loading' width={24} height={24} className='w-full'/> :  'Publish Thread'}
+                {disabled ? <Image src='/assets/spinner.svg' alt='loading' width={24} height={24} className='w-full max-h-full'/> :  'Publish Thread'}
             </Button>
         </form>
     </div>
