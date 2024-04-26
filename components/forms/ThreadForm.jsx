@@ -5,7 +5,7 @@ import { Button } from '../ui/button'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 import { publishThread } from '@/lib/actions/thread.actions'
-import { set } from 'mongoose'
+import Image from 'next/image'
 
 const ThreadForm = ({userID , parentID, spacename}) => {
     const [thread_content, setThread_content] = useState('')
@@ -47,7 +47,9 @@ const ThreadForm = ({userID , parentID, spacename}) => {
                     <button onClick={handleReset} className='p-1 border-2 rounded-md text-[0.6rem] border-purple-900/60 hover:bg-purple-950/80'>Reset</button>
                 </div>
             }
-            <Button type='submit' disabled={disabled} className='w-full mt-2'>Publish Thread</Button>
+            <Button type='submit' disabled={disabled} className='w-full mt-2'>
+                {disabled ? <Image src='/assets/spinner.svg' alt='loading' width={24} height={24} className='w-full mx-auto'/> :  'Publish Thread'}
+            </Button>
         </form>
     </div>
   )
