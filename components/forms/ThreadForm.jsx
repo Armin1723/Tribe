@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { Textarea } from '../ui/textarea'
 import { Button } from '../ui/button'
 import { useRouter } from 'next/navigation'
-import { toast } from 'react-toastify'
 import { publishThread } from '@/lib/actions/thread.actions'
 import Image from 'next/image'
 
@@ -15,7 +14,6 @@ const ThreadForm = ({userID , parentID, spacename}) => {
     const router = useRouter()
     
     const handleThread = async (e) => {
-        const id = toast.loading('Publishing thread...',{ theme:'dark' })
         e.preventDefault()
         setDisabled(true)
         if( thread_content.length > 280 ){
@@ -28,7 +26,6 @@ const ThreadForm = ({userID , parentID, spacename}) => {
             thread_author : userID,
             parentId : parentID
         }, spacename)
-        toast.update(id, { render: "Reply Published", type: "success", isLoading: false, theme:'dark' });
         router.back()
     }
 
